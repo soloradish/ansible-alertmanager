@@ -21,7 +21,7 @@ PIDFile=/var/run/alertmanager.pid
 User=alertmanager
 Group=alertmanager
 ExecReload=/bin/kill -HUP $MAINPID
-ExecStart={{ _alertmanager_binary_install_dir }}/alertmanager \
+ExecStart={{ _alertmanager_binary_install_dir }}/{{ alertmanager_namespace }}/alertmanager \
 {% for option, value in (alertmanager_cluster.items() | sort) %}
 {%   if option == "peers" %}
 {%     for peer in value %}
@@ -31,8 +31,8 @@ ExecStart={{ _alertmanager_binary_install_dir }}/alertmanager \
   {{ pre }}-{{ cluster_flag }}.{{ option }}={{ value }} \
 {%   endif %}
 {% endfor %}
-  {{ pre }}-config.file={{ alertmanager_config_dir }}/alertmanager.yml \
-  {{ pre }}-storage.path={{ alertmanager_db_dir }} \
+  {{ pre }}-config.file={{ alertmanager_config_dir }}/{{ alertmanager_namespace }}/alertmanager.yml \
+  {{ pre }}-storage.path={{ alertmanager_db_dir }}/{{ alertmanager_namespace }} \
   {{ pre }}-web.listen-address={{ alertmanager_web_listen_address }} \
   {{ pre }}-web.external-url={{ alertmanager_web_external_url }}{% for flag, flag_value in alertmanager_config_flags_extra.items() %} \
   {{ pre }}-{{ flag }}={{ flag_value }}{% endfor %}
@@ -47,7 +47,7 @@ NoNewPrivileges=true
 MemoryDenyWriteExecute=true
 PrivateTmp=true
 ProtectHome=true
-ReadWriteDirectories={{ alertmanager_db_dir }}
+ReadWriteDirectories={{ alertmanager_db_dir }}/{{ alertmanager_namespace }}
 RemoveIPC=true
 RestrictSUIDSGID=true
 

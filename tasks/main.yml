@@ -25,7 +25,7 @@
   become: true
   systemd:
     daemon_reload: true
-    name: alertmanager
+    name: "alertmanager-{{ alertmanager_namespace }}"
     state: started
     enabled: true
   tags:

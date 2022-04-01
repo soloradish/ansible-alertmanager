@@ -3,11 +3,11 @@
   become: true
   systemd:
     daemon_reload: true
-    name: alertmanager
+    name: "alertmanager-{{ alertmanager_namespace }}"
     state: restarted
 
 - name: reload alertmanager
   become: true
   systemd:
-    name: alertmanager
+    name: "alertmanager-{{ alertmanager_namespace }}"
     state: reloaded

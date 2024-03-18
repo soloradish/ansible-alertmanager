@@ -5,22 +5,19 @@
     - alertmanager_configure
     - alertmanager_run
 
-- include_tasks: install.yml
-  apply:
-    become: true
+- import_tasks: install.yml
+  become: true
   tags:
     - alertmanager_install
 
 - import_tasks: selinux.yml
-  apply:
-    become: true
+  become: true
   when: ansible_selinux.status == "enabled"
   tags:
     - alertmanager_configure
 
-- include_tasks: configure.yml
-  apply:
-    become: true
+- import_tasks: configure.yml
+  become: true
   tags:
     - alertmanager_configure
 

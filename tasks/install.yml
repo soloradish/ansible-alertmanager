@@ -49,6 +49,7 @@
         dest: "/tmp"
         mode: 0755
         creates: "/tmp/alertmanager-{{ alertmanager_version }}.linux-{{ go_arch }}/alertmanager"
+        remote_src: true
       # delegate_to: localhost
       check_mode: false
 
